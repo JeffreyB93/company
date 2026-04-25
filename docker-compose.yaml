@@ -26,24 +26,25 @@ services:
       timeout: 20s
       retries: 10
 
-  phpmyadmin:  # опционально - веб-интерфейс для управления БД
+  phpmyadmin:
     image: phpmyadmin/phpmyadmin
     container_name: email_service_phpmyadmin
     environment:
-      PMA_HOST: mysql
+      PMA_HOST: mysql  # Имя сервиса должно работать
       PMA_PORT: 3306
       PMA_USER: root
       PMA_PASSWORD: root
+      UPLOAD_LIMIT: 300M
     ports:
       - "8081:80"
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
     networks:
       - email_network
 
 volumes:
   mysql_data:
-    driver: local
 
 networks:
   email_network:
