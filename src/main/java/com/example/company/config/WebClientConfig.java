@@ -8,7 +8,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 @Configuration
 public class WebClientConfig {
 
-    @Value("${ati.api.base-url:https://ati.su/api/email/getEmail}")
+    @Value("${ati.api.base-url:https://ati.su}")
     private String apiBaseUrl;
 
     @Bean

@@ -24,11 +24,12 @@ public class AtiCompanyClient {
 
     public AtiEmailResponse fetchEmail(String companyId, String contactId) {
         try {
-            String uri = String.format("/%s/%s", companyId, contactId);
+            String uri = "/api/email/getEmail" +  String.format("/%s/%s", companyId, contactId);
             log.info("Calling ATI API: {}", uri);
-
             return webClient.get()
-                    .uri(uri)
+                    .uri(uriBuilder -> uriBuilder
+                            .path(uri)
+                            .build())
                     .header("Cookie", cookies)
                     .retrieve()
                     .onStatus(status -> status.is4xxClientError() || status.is5xxServerError(),

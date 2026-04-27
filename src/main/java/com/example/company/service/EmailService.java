@@ -43,7 +43,14 @@ public class EmailService {
     }
 
     private EmailDto fetchEmail(Long companyId, Long contactId) {
-        AtiEmailResponse atiEmailResponse = atiCompanyClient.fetchEmail(companyId.toString(), contactId.toString());
+        AtiEmailResponse atiEmailResponse;
+        try {
+            atiEmailResponse = atiCompanyClient.fetchEmail(companyId.toString(), contactId.toString());
+        } catch (Exception e) {
+            throw new ResourceNotFoundException(
+                    String.format("Email not found with companyId: %d; contactId: %d", companyId, contactId)
+            );
+        }
         return ApiCompanyMapper.fromAtiEmailResponse(atiEmailResponse);
     }
 }
