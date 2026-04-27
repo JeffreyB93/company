@@ -1,6 +1,7 @@
-package com.example.company.exception;
+package com.example.company.controller;
 
 import com.example.company.dto.ErrorResponse;
+import com.example.company.exception.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
