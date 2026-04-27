@@ -6,6 +6,7 @@ import com.example.company.client.mapper.ApiCompanyMapper;
 import com.example.company.dao.dto.CompanyDto;
 import com.example.company.dao.service.CompanyService;
 import com.example.company.dto.EmailDto;
+import com.example.company.exception.ResourceNotFoundException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -32,6 +33,11 @@ public class EmailService {
             }
         } catch (EntityNotFoundException e) {
             EmailDto emailDto = fetchEmail(companyId, contactId);
+            if (emailDto.getEmail() == null || emailDto.getEmail().isEmpty()) {
+                throw new ResourceNotFoundException(
+                        String.format("Email not found with companyId: %d; contactId: %d", companyId, contactId)
+                );
+            }
             return companyService.save(companyId, contactId, emailDto.getEmail());
         }
     }
