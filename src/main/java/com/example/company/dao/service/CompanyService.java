@@ -19,7 +19,7 @@ public class CompanyService {
     private final CompanyRepository companyRepository;
 
     @Transactional
-    public CompanyDto getCompany(Long companyId, Long contactId) {
+    public CompanyDto get(Long companyId, Long contactId) {
        CompanyEntity entity = companyRepository.findByCompanyIdAndContactId(companyId, contactId)
                 .orElseThrow(() -> new EntityNotFoundException("Company not found"));
         return CompanyMapper.fromEntity(entity);

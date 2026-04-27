@@ -23,7 +23,7 @@ public class EmailService {
     public CompanyDto get(Long companyId, Long contactId) {
         CompanyDto companyDto;
         try {
-            companyDto = companyService.getCompany(companyId, contactId);
+            companyDto = companyService.get(companyId, contactId);
             String email = companyDto.getEmail();
             if (email == null || email.isEmpty()) {
                 EmailDto emailDto = fetchEmail(companyId, contactId);
